@@ -168,3 +168,5 @@ window.addEventListener('pointerdown', function () {
   window.setTimeout(function () { cursorFlower.classList.remove('is-clicking'); }, 220);
 });
 
+
+window.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'&&sceneArtSlot){if(sceneArtSlot.contains(e.target))sceneArtSlot.classList.add('is-curtained');else sceneArtSlot.classList.remove('is-curtained')}});
