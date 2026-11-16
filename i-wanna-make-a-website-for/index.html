@@ -95,20 +95,36 @@
       <p class="memory-note"><span aria-hidden="true">♡</span> just us, just as we are <span aria-hidden="true">♡</span></p>
     </section>
 
+    <section class="arrow-game-section section-card" id="arrow-game">
+      <div class="section-kicker"><span>04</span><i></i><span>a tiny game</span></div>
+      <div class="arrow-game-copy">
+        <p class="eyebrow">ready, aim, love</p>
+        <h2>A little arrow<br><em>for your heart.</em></h2>
+        <p class="section-copy">Tap the button and send a little love straight to its target.</p>
+      </div>
+      <div class="archery-stage" id="archeryStage" aria-label="A bow, arrow, and heart target">
+        <div class="game-bow" aria-hidden="true"><span class="bow-string"></span></div>
+        <div class="love-arrow" id="loveArrow" aria-hidden="true"><span class="arrow-shaft"></span><span class="arrow-head"></span><span class="arrow-tail"></span></div>
+        <div class="heart-target" id="heartTarget" aria-hidden="true">♥<span>✦</span><i>✧</i></div>
+      </div>
+      <button class="button button-primary archery-button" id="shootArrow" type="button">Shoot your arrow <span aria-hidden="true">♡</span></button>
+      <p class="archery-response" id="archeryResponse" aria-live="polite"></p>
+    </section>
+
     <section class="proposal-section section-card" id="proposalScene">
-      <div class="section-kicker"><span>04</span><i></i><span>our little dream</span></div>
+      <div class="section-kicker"><span>05</span><i></i><span>our little dream</span></div>
       <div class="scene-art-slot" aria-label="Space for the mountain proposal illustration">
         <div class="scene-sky" aria-hidden="true"></div>
         <img class="proposal-artwork" id="proposalArtwork" src="assets/proposal-mountain.png" alt="A cute illustration of a proposal on a mountain between two waterfalls" width="1672" height="941" loading="eager" decoding="async" fetchpriority="high">
         <div class="proposal-curtain curtain-left" aria-hidden="true"></div>
         <div class="proposal-curtain curtain-right" aria-hidden="true"></div>
-        <div class="scene-art-message" id="sceneArtworkPlaceholder"><span aria-hidden="true">✧</span><strong>your proposal scene</strong><small>AI artwork will appear here</small></div>
+        <div class="scene-art-message" id="sceneArtworkPlaceholder" aria-live="polite" hidden><span aria-hidden="true">✧</span><strong>your proposal scene</strong><small>AI artwork could not load</small></div>
         <div class="falling-flowers" id="fallingFlowers" aria-hidden="true"></div>
       </div>
     </section>
 
     <section class="question-section section-card" id="question">
-      <div class="section-kicker"><span>05</span><i></i><span>a tiny question</span></div>
+      <div class="section-kicker"><span>06</span><i></i><span>a tiny question</span></div>
       <div class="question-layout">
           <div class="ring-box-wrap" id="ringBoxWrap" aria-label="An animated ring box opening">
           <div class="ring-sparkle sparkle-a" aria-hidden="true">✧</div>
