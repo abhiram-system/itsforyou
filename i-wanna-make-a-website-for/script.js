@@ -21,7 +21,6 @@ if (pageFlowerRain) {
   }
 }
 
-
 if (fallingFlowers) {
   const petals = ['✿', '❀', '✽'];
   const colors = ['#cf8db8', '#b69ad2', '#f1c0d2'];
@@ -39,20 +38,58 @@ if (fallingFlowers) {
   fallingFlowers.classList.add('is-active');
 }
 
-function revealProposalArtwork() {
-  proposalArtwork.hidden = false;
-  sceneArtworkPlaceholder.hidden = true;
-}
+proposalArtwork.addEventListener('error', function () {
+  sceneArtworkPlaceholder.hidden = false;
+});
 
-proposalArtwork.addEventListener('load', revealProposalArtwork);
-if (proposalArtwork.complete && proposalArtwork.naturalWidth > 0) revealProposalArtwork();
+function prepareLetterWords() {
+  let wordIndex = 0;
+  document.querySelectorAll('#letterPaper .paper-greeting, #letterPaper .phrase-list p').forEach(function (paragraph) {
+    const originalNodes = Array.from(paragraph.childNodes);
+    paragraph.textContent = '';
+    originalNodes.forEach(function (node) {
+      if (node.nodeType !== Node.TEXT_NODE) return;
+      node.textContent.split(/(\s+)/).forEach(function (part) {
+        if (!part) return;
+        if (/^\s+$/.test(part)) {
+          paragraph.appendChild(document.createTextNode(part));
+          return;
+        }
+        const word = document.createElement('span');
+        word.className = 'typewriter-word';
+        word.style.setProperty('--word-delay', (wordIndex * 180) + 'ms');
+        word.textContent = part;
+        paragraph.appendChild(word);
+        wordIndex += 1;
+      });
+    });
+  });
+}
 
 document.getElementById('openLetter').addEventListener('click', function () {
   const paper = document.getElementById('letterPaper');
+  if (paper.hidden) prepareLetterWords();
   paper.hidden = false;
   requestAnimationFrame(function () { paper.classList.add('is-open'); });
   this.textContent = 'Your letter is open';
 });
+
+const shootArrow = document.getElementById('shootArrow');
+if (shootArrow) {
+  const loveArrow = document.getElementById('loveArrow');
+  const heartTarget = document.getElementById('heartTarget');
+  const archeryResponse = document.getElementById('archeryResponse');
+  let arrowIsFlying = false;
+
+  shootArrow.addEventListener('click', function () {
+    if (arrowIsFlying) return;
+    arrowIsFlying = true;
+    shootArrow.hidden = true;
+    archeryResponse.textContent = '';
+    requestAnimationFrame(function () { loveArrow.classList.add('is-shot'); });
+    window.setTimeout(function () { heartTarget.classList.add('is-hit'); }, 900);
+  });
+}
 
 const ringBoxWrap = document.getElementById('ringBoxWrap');
 const proposalQuestion = document.getElementById('proposalQuestion');
@@ -139,6 +176,7 @@ answerYes.addEventListener('click', function () {
   launchHeartBurst(answerYes);
   answerResponse.textContent = 'luv uhh soo much';
   answerZone.hidden = true;
+  sceneArtSlot?.classList.add('is-curtained');
   const scene = document.getElementById('proposalScene');
   scene.hidden = false;
   window.setTimeout(function () {
@@ -151,22 +189,9 @@ window.addEventListener('pointermove', function (event) {
   cursorFlower.style.setProperty('--cursor-x', event.clientX + 'px');
   cursorFlower.style.setProperty('--cursor-y', event.clientY + 'px');
   cursorFlower.classList.add('is-visible');
-  if (sceneArtSlot) {
-    const bounds = sceneArtSlot.getBoundingClientRect();
-    const overScene = event.clientX >= bounds.left && event.clientX <= bounds.right &&
-      event.clientY >= bounds.top && event.clientY <= bounds.bottom;
-    sceneArtSlot.classList.toggle('is-curtained', overScene);
-  }
-});
-
-window.addEventListener('blur', function () {
-  sceneArtSlot?.classList.remove('is-curtained');
 });
 
 window.addEventListener('pointerdown', function () {
   cursorFlower.classList.add('is-clicking');
   window.setTimeout(function () { cursorFlower.classList.remove('is-clicking'); }, 220);
 });
-
-
-window.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'&&sceneArtSlot){if(sceneArtSlot.contains(e.target))sceneArtSlot.classList.add('is-curtained');else sceneArtSlot.classList.remove('is-curtained')}});
